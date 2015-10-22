@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Foxify</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+	<script type="text/javascript">
+		$(function(){
+
+		    $(".dropdown-menu li a").click(function(){
+
+		      $("#dropdown .btn:first-child").text($(this).text());
+		      $("#dropdown .btn:first-child").val($(this).text());
+
+		   });
+
+		});
+	</script>
+
+	<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="main.css" />
+</head>
+
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Foxify</a>
+			</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="active"><a href="#">Link</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">Separated link</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+	<div class="container center-block">
+		<h1>Beginning Page</h1>
+		<p>Please enter the following fields.</p>
+		<div class="form-group col-sm-4 col-md-6">
+			<label>First Name</label>
+			<input type="text" class="form-control" placeholder="First" />
+		</div>
+		<div class="form-group col-sm-4 col-md-6">
+			<label>Last Name</label>
+			<input type="text" class="form-control" placeholder="Last" />
+		</div>
+		<div class="form-group col-md-12">
+			<label>Email</label>
+			<input type="text" class="form-control" placeholder="Email" />
+		</div>
+		<div class="form-group">
+			<button type="button" class="btn btn-primary pull-right">Next</button>
+		</div>
+	</div>
+
+	<hr>
+
+	<div class="container center-block">
+		<h1>Add Courses</h1>
+		<div class="form-group">
+			<select class="form-control">
+				<option value="" selected>Select a school</option>
+				<option value="Dutchess">Dutchess Community College</option>
+			</select>
+		</div>
+		
+		<hr>
+
+		<label>Add Courses</label>
+		<div id="course1">
+			<div class="form-group col-md-4">
+				<select class="form-control">
+					<option value="" selected>Subject</option>
+					<option value="Dutchess">Dutchess</option>
+				</select>
+			</div>
+			<div class="form-group col-md-8">
+				<select class="form-control">
+					<option value="" selected>Course Num</option>
+					<option value="Dutchess">Dutchess</option>
+				</select>
+			</div>
+		</div>
+		<div id="course2">
+			<div class="form-group col-md-4">
+				<select class="form-control">
+					<option value="" selected>Subject</option>
+					<option value="Dutchess">Dutchess</option>
+				</select>
+			</div>
+			<div class="form-group col-md-8">
+				<select class="form-control">
+					<option value="" selected>Course Num</option>
+					<option value="Dutchess">Dutchess</option>
+				</select>
+			</div>
+		</div>
+		<div id="course3">
+			<div class="form-group col-md-4">
+				<select class="form-control">
+					<option value="" selected>Subject</option>
+					<option value="Dutchess">Dutchess</option>
+				</select>
+			</div>
+			<div class="form-group col-md-8">
+				<select class="form-control">
+					<option value="" selected>Course Num</option>
+					<option value="Dutchess">Dutchess</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<button type="button" class="btn btn-primary pull-right">Submit</button>
+			<button type="button" class="btn btn-default pull-right">Save Session</button>
+		</div>
+	</div>
+</body>
+
+</html>
