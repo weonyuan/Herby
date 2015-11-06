@@ -1,7 +1,52 @@
 doctype html
 html
   head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    title=title
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
+
+    script(type='text/javascript', src='bower_components/jquery/dist/jquery.js')
+    script(type='text/javascript', src='bower_components/bootstrap/dist/js/bootstrap.js')
+    script(type='text/javascript', src='bower_components/react/react.js')
+    script(type='text/javascript', src='bower_components/react-dom/react-dom.js')
+    script(type='text/babel', src='javascripts/main.js')
+
+    script(type='text/javascript').
+      $(function(){
+        $(".dropdown-menu li a").click(function(){
+          $("#dropdown .btn:first-child").text($(this).text());
+          $("#dropdown .btn:first-child").val($(this).text());
+        });
+      });
+
+    link(rel='stylesheet', type='text/css', href='bower_components/bootstrap/dist/css/bootstrap.css')
+    link(rel='stylesheet', type='text/css', href='stylesheets/main.css')
+
+    style(type='text/css').
+      .ticket-num {
+      font-size: 24px;
+      font-weight: bold;
+      }
   body
+    nav.navbar.navbar-default
+      .container-fluid
+        // Brand and toggle get grouped for better mobile display
+        .navbar-header
+          button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1', aria-expanded='false')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          .navbar-brand Foxify
+        // Collect the nav links, forms, and other content for toggling
+        #bs-example-navbar-collapse-1.collapse.navbar-collapse
+          ul.nav.navbar-nav.navbar-right
+            li.dropdown
+              a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                | Menu 
+                span.caret
+              ul.dropdown-menu
+                li
+                  a(href='/') Home
+                li
+                  a(href='#') Restore Session
     block content

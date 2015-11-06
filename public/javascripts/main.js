@@ -1,8 +1,29 @@
 // main.js
-var React = require('react');
-var ReactDOM = require('react-dom');
+var numCourses = 0;
+
+var CourseSelect = React.createClass({
+  render: function() {
+    return (
+      <div id="course23" class="form-group">
+        <label class="col-xs-2 col-sm-2 col-md-2 control-label">1</label>
+        <div class="col-xs-5 col-sm-5 col-md-5">
+          <select class="form-control">
+            <option value="" selected>Subject</option>
+            <option value="ACC">ACC</option>
+          </select>
+        </div>
+        <div class="col-xs-5 col-sm-5 col-md-5">
+          <select class="form-control">
+            <option value="" selected>Course</option>
+            <option value="101">101</option>
+          </select>
+        </div>
+      </div>
+    );
+  }
+});
 
 ReactDOM.render(
-  <h1>Hello world</h1>,
-  document.getElementById('example')
+  <CourseSelect />,
+  document.getElementById('courses')
 );

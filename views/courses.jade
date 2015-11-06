@@ -1,0 +1,47 @@
+extends layout
+
+block content
+  .container.container-fluid.center-block
+    h1=header
+    form.form-horizontal(action='/results', method='post')
+      .form-group.col-xs-12.col-sm-12.col-md-12
+        select.form-control
+          option(value='', selected='') Select a school
+          option(value='Dutchess') Dutchess Community College
+      #courses
+        #course1.form-group
+          label.col-xs-2.col-sm-2.col-md-2.control-label 1
+          .col-xs-5.col-sm-5.col-md-5
+            select.form-control
+              option(value='', selected='') Subject
+              option(value='ACC') ACC
+          .col-xs-5.col-sm-5.col-md-5
+            select.form-control
+              option(value='', selected='') Course
+              option(value='101') 101
+        #course2.form-group
+          label.col-xs-2.col-sm-2.col-md-2.control-label 2
+          .col-xs-5.col-sm-5.col-md-5
+            select.form-control
+              option(value='', selected='') Subject
+              option(value='ACC') ACC
+          .col-xs-5.col-sm-5.col-md-5
+            select.form-control
+              option(value='', selected='') Course
+              option(value='101') 101
+        #course3.form-group
+          label.col-xs-2.col-sm-2.col-md-2.control-label 3
+          .col-xs-5.col-sm-5.col-md-5
+            select.form-control
+              option(value='', selected='') Subject
+              option(value='ACC') ACC
+          .col-xs-5.col-sm-5.col-md-5
+            select.form-control
+              option(value='', selected='') Course
+              option(value='101') 101
+      .form-group.col-xs-3.col-sm-2.col-md-2(style='float:right')
+        button.btn.btn-primary.pull-right(type='submit') Submit
+    form(action='/save', method='post')
+      .form-group.col-xs-9.col-sm-10.col-md-10
+        button.btn.btn-default.pull-right(type='submit') Save Session
+          

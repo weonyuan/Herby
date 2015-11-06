@@ -1,5 +1,18 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .container.container-fluid.center-block
+    h1=title
+    p Please enter the following fields.
+    form(action='/courses', method='post')
+      .form-group.col-xs-6.col-sm-6.col-md-6
+        label(for='first-name') First Name
+        input.form-control(type='text', name='firstName', placeholder='First')
+      .form-group.col-xs-6.col-sm-6.col-md-6
+        label(for='last-name') Last Name
+        input.form-control(type='text', name='lastName', placeholder='Last')
+      .form-group.col-xs-12.col-sm-12.col-md-12
+        label(for='email') Email
+        input.form-control(type='text', name='email', placeholder='Email')
+      .form-group.col-xs-12.col-sm-12.col-md-12
+        button.btn.btn-primary.pull-right(type='submit') Next

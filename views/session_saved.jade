@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  .container.container-fluid.center-block
+    h1=header
+    p.text-center Your session has been saved!
+    p.text-center
+      | To restore your session, please enter your email address and enter the following code:
+    p.text-center.ticket-num=sessionNum
+    .form-group.col-xs-12.col-sm-12.col-md-12
+      form(action='/', method='post')
+        button.btn.btn-primary.pull-right(type='submit') OK

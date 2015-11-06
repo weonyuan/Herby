@@ -6,6 +6,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
 	<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="bower_components/react/react.js"></script>
+	<script type="text/javascript" src="bower_components/react-dom/react-dom.js"></script>
+	<script type="text/babel" src="javascripts/main.js"></script>
 	<script type="text/javascript">
 		$(function(){
 
@@ -66,20 +69,22 @@
 		<h1>Beginning Page</h1>
 		<p>Please enter the following fields.</p>
 		<div class="form-group col-xs-6 col-sm-6 col-md-6">
-			<label>First Name</label>
-			<input type="text" class="form-control" placeholder="First" />
-		</div>
-		<div class="form-group col-xs-6 col-sm-6 col-md-6">
-			<label>Last Name</label>
-			<input type="text" class="form-control" placeholder="Last" />
-		</div>
-		<div class="form-group col-xs-12 col-sm-12 col-md-12">
-			<label>Email</label>
-			<input type="text" class="form-control" placeholder="Email" />
-		</div>
-		<div class="form-group col-xs-12 col-sm-12 col-md-12">
-			<button type="button" class="btn btn-primary pull-right">Next</button>
-		</div>
+			<form action="/results" method="post">
+				<label for="first-name">First Name</label>
+				<input type="text" name="firstName" class="form-control" placeholder="First" />
+			</div>
+			<div class="form-group col-xs-6 col-sm-6 col-md-6">
+				<label for="last-name">Last Name</label>
+				<input type="text" name="lastName" class="form-control" placeholder="Last" />
+			</div>
+			<div class="form-group col-xs-12 col-sm-12 col-md-12">
+				<label for="email">Email</label>
+				<input type="text" name="email" class="form-control" placeholder="Email" />
+			</div>
+			<div class="form-group col-xs-12 col-sm-12 col-md-12">
+				<button type="submit" class="btn btn-primary pull-right">Next</button>
+			</div>
+		</form>
 	</div>
 
 	<hr>
@@ -87,7 +92,7 @@
 	<div class="container container-fluid center-block">
 		<h1>Add Courses</h1>
 
-		<form class="form-horizontal">
+		<form action="/results" method="post" class="form-horizontal">
 			<div class="form-group col-xs-12 col-sm-12 col-md-12">
 				<select class="form-control">
 					<option value="" selected>Select a school</option>
@@ -95,62 +100,64 @@
 				</select>
 			</div>
 
-			<div id="course1" class="form-group">
-				<label class="col-xs-2 col-sm-2 col-md-2 control-label">1</label>
-				<div class="col-xs-5 col-sm-5 col-md-5">
-					<select class="form-control">
-						<option value="" selected>Subject</option>
-						<option value="ACC">ACC</option>
-					</select>
+			<div id="courses">
+				<div id="course1" class="form-group">
+					<label class="col-xs-2 col-sm-2 col-md-2 control-label">1</label>
+					<div class="col-xs-5 col-sm-5 col-md-5">
+						<select class="form-control">
+							<option value="" selected>Subject</option>
+							<option value="ACC">ACC</option>
+						</select>
+					</div>
+					<div class="col-xs-5 col-sm-5 col-md-5">
+						<select class="form-control">
+							<option value="" selected>Course</option>
+							<option value="101">101</option>
+						</select>
+					</div>
 				</div>
-				<div class="col-xs-5 col-sm-5 col-md-5">
-					<select class="form-control">
-						<option value="" selected>Course</option>
-						<option value="101">101</option>
-					</select>
+
+				<div id="course2" class="form-group">
+					<label class="col-xs-2 col-sm-2 col-md-2 control-label">2</label>
+					<div class="col-xs-5 col-sm-5 col-md-5">
+						<select class="form-control">
+							<option value="" selected>Subject</option>
+							<option value="ACC">ACC</option>
+						</select>
+					</div>
+					<div class="col-xs-5 col-sm-5 col-md-5">
+						<select class="form-control">
+							<option value="" selected>Course</option>
+							<option value="101">101</option>
+						</select>
+					</div>
+				</div>
+
+				<div id="course3" class="form-group">
+					<label class="col-xs-2 col-sm-2 col-md-2 control-label">3</label>
+					<div class="col-xs-5 col-sm-5 col-md-5">
+						<select class="form-control">
+							<option value="" selected>Subject</option>
+							<option value="ACC">ACC</option>
+						</select>
+					</div>
+					<div class="col-xs-5 col-sm-5 col-md-5">
+						<select class="form-control">
+							<option value="" selected>Course</option>
+							<option value="101">101</option>
+						</select>
+					</div>
 				</div>
 			</div>
 
-			<div id="course2" class="form-group">
-				<label class="col-xs-2 col-sm-2 col-md-2 control-label">2</label>
-				<div class="col-xs-5 col-sm-5 col-md-5">
-					<select class="form-control">
-						<option value="" selected>Subject</option>
-						<option value="ACC">ACC</option>
-					</select>
-				</div>
-				<div class="col-xs-5 col-sm-5 col-md-5">
-					<select class="form-control">
-						<option value="" selected>Course</option>
-						<option value="101">101</option>
-					</select>
-				</div>
+			<div class="form-group col-xs-9 col-sm-10 col-md-10">
+				<button type="button" class="btn btn-default pull-right">Save Session</button>
 			</div>
 
-			<div id="course3" class="form-group">
-				<label class="col-xs-2 col-sm-2 col-md-2 control-label">3</label>
-				<div class="col-xs-5 col-sm-5 col-md-5">
-					<select class="form-control">
-						<option value="" selected>Subject</option>
-						<option value="ACC">ACC</option>
-					</select>
-				</div>
-				<div class="col-xs-5 col-sm-5 col-md-5">
-					<select class="form-control">
-						<option value="" selected>Course</option>
-						<option value="101">101</option>
-					</select>
-				</div>
+			<div class="form-group col-xs-3 col-sm-2 col-md-2">
+				<button type="button" class="btn btn-primary pull-right">Submit</button>
 			</div>
 		</form>
-
-		<div class="form-group col-xs-9 col-sm-10 col-md-10">
-			<button type="button" class="btn btn-default pull-right">Save Session</button>
-		</div>
-
-		<div class="form-group col-xs-3 col-sm-2 col-md-2">
-			<button type="button" class="btn btn-primary pull-right">Submit</button>
-		</div>
 	</div>
 
 	<hr>
