@@ -2,8 +2,8 @@ extends layout
 
 block content
   .container.container-fluid.center-block
-    h1=title
-    p Please enter the following fields.
+    h1.col-xs-12=title
+    p.col-xs-12 Please enter the following fields.
     form(action='/courses', method='post')
       .form-group.col-xs-6.col-sm-6.col-md-6
         label(for='first-name') First Name

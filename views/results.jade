@@ -4,3 +4,6 @@ block content
   .container.container-fluid.center-block
     h1=header
     p You've reached the end!
+    .form-group.col-xs-12.col-sm-12.col-md-12
+      form(action='/', method='post')
+        button.btn.btn-primary.pull-right(type='submit') OK

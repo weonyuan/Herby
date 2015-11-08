@@ -23,10 +23,15 @@ router.post('/', function(req, res, next) {
 });
 
 router.post('/courses', function(req, res, next) {
-  // res.send('first name: ' + req.body.firstName +
-  //          '; last name: ' + req.body.lastName +
-  //          '; email: ' + req.body.email);
+  if (req.body.email === 'dupe@dupe.com') {
+    console.log('dupe');
+  }
+  
   res.render('courses', { title: app, header: 'Add Courses' });
+});
+
+router.get('/restore', function(req, res, next) {
+  res.render('restore', { title: app, header: 'Restore Session' });
 });
 
 router.post('/results', function(req, res, next) {
