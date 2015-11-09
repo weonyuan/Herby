@@ -3,9 +3,14 @@ extends layout
 block content
   .container.container-fluid.center-block
     h1=header
-    p.text-center Your session has been saved!
-    p.text-center
-      | To restore your session, please enter your email address and enter the following code:
+    p If you have previously saved your session in filling out the credit evaluation, you can restore it by entering the generated session number and the email address that is assoiated to the form.
+    p To restore your session, please enter your email address and enter the following code:
     .form-group.col-xs-12.col-sm-12.col-md-12
-      form(action='/', method='post')
-        button.btn.btn-primary.pull-right(type='submit') OK
+      form(action='/courses', method='post')
+        .form-group.col-xs-6.col-sm-6.col-md-6
+          label(for='session-num') Session Number
+          input.form-control(type='text', name='sessionNum', placeholder='Session Number')
+        .form-group.col-xs-6.col-sm-6.col-md-6
+          label(for='email') Email
+          input.form-control(type='text', name='email', placeholder='Email')
+        button.btn.btn-primary.pull-right(type='submit') Restore

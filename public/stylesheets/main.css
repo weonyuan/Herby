@@ -1,0 +1,14 @@
+@media (min-width: 768px) {
+  .container {
+    width: 60%;
+  }
+}
+
+footer {
+  bottom: 1%;
+  font-size: 0.9em;
+  margin-bottom: 15px;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}

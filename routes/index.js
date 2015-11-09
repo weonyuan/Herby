@@ -15,11 +15,19 @@ function randomize() {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: app });
+  res.render('index', { title: app, header: 'Welcome to Foxify!' });
 });
 
 router.post('/', function(req, res, next) {
-  res.render('index', { title: app });
+  res.render('index', { title: app, header: 'Welcome to Foxify!' });
+});
+
+router.get('/form', function(req, res, next) {
+  res.render('form', { title: app, header: 'Credit Evaluation' });
+});
+
+router.post('/form', function(req, res, next) {
+  res.render('form', { title: app, header: 'Credit Evaluation' });
 });
 
 router.post('/courses', function(req, res, next) {

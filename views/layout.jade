@@ -6,8 +6,6 @@ html
 
     script(type='text/javascript', src='bower_components/jquery/dist/jquery.js')
     script(type='text/javascript', src='bower_components/bootstrap/dist/js/bootstrap.js')
-    script(type='text/javascript', src='bower_components/react/react.js')
-    script(type='text/javascript', src='bower_components/react-dom/react-dom.js')
     script(type='text/babel', src='javascripts/main.js')
 
     script(type='text/javascript').
@@ -43,6 +41,10 @@ html
             li
               a(href='/') Home
             li
+              a(href='/form') Credit Evaluation
+            li
               a(href='/restore') Restore Session
                 
     block content
+    block footer
+      footer Made by Herby. 2015.

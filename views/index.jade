@@ -2,17 +2,9 @@ extends layout
 
 block content
   .container.container-fluid.center-block
-    h1.col-xs-12=title
-    p.col-xs-12 Please enter the following fields.
-    form(action='/courses', method='post')
-      .form-group.col-xs-6.col-sm-6.col-md-6
-        label(for='first-name') First Name
-        input.form-control(type='text', name='firstName', placeholder='First')
-      .form-group.col-xs-6.col-sm-6.col-md-6
-        label(for='last-name') Last Name
-        input.form-control(type='text', name='lastName', placeholder='Last')
-      .form-group.col-xs-12.col-sm-12.col-md-12
-        label(for='email') Email
-        input.form-control(type='text', name='email', placeholder='Email')
+    h1.col-xs-12=header
+    p.col-xs-12 Foxify is a tool currently in development that offers prospective transfer students a convenient way to determine how many credits will transfer to Marist College. Currently, credit evaluations are done manually, which takes several weeks for feedback and are only available to students who have been accepted to Marist. Foxify aims to remove this nuisance by providing immediate feedback on these credit evaluations to any prospective student.
+    p.col-xs-12 Click Next to get started in evaluating your credits.
+    form(action='/form', method='post')
       .form-group.col-xs-12.col-sm-12.col-md-12
         button.btn.btn-primary.pull-right(type='submit') Next
