@@ -25,8 +25,7 @@ var courses = {
     { "courseNum": "109", "desc": "EXCURSIONS IN MATH I" },
     { "courseNum": "115", "desc": "PRE-CALCULUS" },
     { "courseNum": "125", "desc": "CALC:MGMT APPLCTN" },
-    { "courseNum": "140", "desc": "DISCRETE MATH I" },
-    { "courseNum": "221", "desc": "CALCULUS I" }
+    { "courseNum": "140", "desc": "DISCRETE MATH I" }
   ]
 };
 
