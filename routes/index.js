@@ -1,6 +1,7 @@
 var express = require('express');
+var document = require('browserify');
 var router = express.Router();
-var app = 'Foxify'
+var app = 'Foxify';
 
 function randomize() {
   var random = '';
@@ -32,7 +33,7 @@ router.post('/form', function(req, res, next) {
 
 router.post('/courses', function(req, res, next) {
   if (req.body.email === 'dupe@dupe.com') {
-    console.log('dupe');
+    restore();
   }
   
   res.render('courses', { title: app, header: 'Add Courses' });

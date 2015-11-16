@@ -6,7 +6,12 @@ html
 
     script(type='text/javascript', src='bower_components/jquery/dist/jquery.js')
     script(type='text/javascript', src='bower_components/bootstrap/dist/js/bootstrap.js')
-    script(type='text/babel', src='javascripts/main.js')
+    script(type='text/javascript', src='bower_components/angular/angular.js')
+    script(type='text/javascript', src='bower_components/angular-route/angular-route.js')  
+    script(type='text/javascript', src='app.js')
+    script(type='text/javascript', src='javascripts/main.js')
+
+    script(type='text/javascript', src='javascripts/controllers/courses.js')
 
     script(type='text/javascript').
       $(function(){
@@ -24,7 +29,7 @@ html
       font-size: 24px;
       font-weight: bold;
       }
-  body
+  body(ng-app='foxifyApp')
     nav.navbar.navbar-default
       .container-fluid
         // Brand and toggle get grouped for better mobile display
