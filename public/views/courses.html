@@ -5,28 +5,12 @@
   </select>
 </div>
 <div id="courses">
-  <div id="course1" class="form-group">
-    <label class="col-xs-2 col-sm-2 col-md-2 control-label">1</label>
+  <div ng-attr-id="{{ 'course' + $index + 1 }}"
+       class="form-group"
+       ng-repeat="n in form track by $index">
+    <label class="col-xs-2 col-sm-2 col-md-2 control-label">{{ $index + 1 }}</label>
     <div class="col-xs-5 col-sm-5 col-md-5">
-      <select id="course1-subject" class="form-control">
-        <option value="" selected="">Subject</option>
-        <option ng-value="{{ key }}">ACC</option>
-        <option value="MATH">MATH</option>
-      </select>
-    </div>
-    <div class="col-xs-5 col-sm-5 col-md-5">
-      <select id="course1-course" class="form-control">
-        <option value="" selected="">Course</option>
-        <option value="101">101</option>
-        <option value="103">103</option>
-        <option value="201">201</option>
-      </select>
-    </div>
-  </div>
-  <div>
-    <h1>Test</h1>
-    <div class="col-xs-5 col-sm-5 col-md-5">
-      <select id="course1-subject"
+      <select ng-attr-id="{{ 'course' + ($index + 1) + '-subject' }}"
               class="form-control"
               ng-model="form.subject"
               ng-change="updateSelection()"
@@ -35,9 +19,8 @@
       </select>
     </div>
     <div class="col-xs-5 col-sm-5 col-md-5">
-      <select id="course1-course"
+      <select ng-attr-id="{{ 'course' + ($index + 1) + '-course' }}"
               class="form-control"
-              ng-change="updateSelection()"
               ng-model="form.courseNum">
         <option value="" selected="">Course</option>
         <option ng-repeat="data in data.courses[form.subject]">{{ data.courseNum }}</option>
