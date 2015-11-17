@@ -18,7 +18,8 @@ var courses = {
     { "courseNum": "105", "desc": "ACCOUNTING ELECTIVE" },
     { "courseNum": "213", "desc": "ACCOUNTING SYSTEMS" },
     { "courseNum": "220", "desc": "ACCT COURSE" },
-    { "courseNum": "221", "desc": "INTERM ACCTING I" }
+    { "courseNum": "221", "desc": "INTERM ACCTING I" },
+    { "courseNum": "422", "desc": "INTERM ACCTING II" }
   ],
   "MATH": [
     { "courseNum": "105", "desc": "MATH COURSE" },
