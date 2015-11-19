@@ -32,11 +32,12 @@ router.post('/form', function(req, res, next) {
 });
 
 router.post('/courses', function(req, res, next) {
+  var sessionExisted = false;
   if (req.body.email === 'dupe@dupe.com') {
-    restore();
+    sessionExisted = true;
   }
   
-  res.render('courses', { title: app, header: 'Add Courses' });
+  res.render('courses', { title: app, header: 'Add Courses', sessionExisted: sessionExisted });
 });
 
 router.get('/restore', function(req, res, next) {

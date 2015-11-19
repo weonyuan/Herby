@@ -7,11 +7,11 @@ var app = angular
 
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider
-      .when('/courses', {
+      .when('/', {
         templateUrl: 'views/courses.html',
         controller: 'CoursesCtrl'
       })
       .otherwise({
-        redirectTo: '/courses'
+        redirectTo: '/'
       });
   }]);

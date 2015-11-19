@@ -5,8 +5,7 @@ app.controller('CoursesCtrl',
   function($scope, $routeParams) {
 
   $scope.data = {
-    courses: courses,
-    numCourses: 3
+    courses: courses
   }
 
   $scope.form = [
