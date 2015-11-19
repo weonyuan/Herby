@@ -3,9 +3,9 @@ extends layout
 block content
   div.container.container-fluid.center-block
     h1=header
-    if sessionExisted
+    if alertMsg
       .alert.alert-info(role='alert')
-        | It looks like you already have a session saved before. You can 
+        | It looks like you already have a previous session saved. If you want, you can 
         a.alert-link(href='/restore') restore your session here.
 
     form.form-horizontal(ng-view='', action='/results', method='post')

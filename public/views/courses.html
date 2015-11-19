@@ -8,8 +8,8 @@
   <div ng-attr-id="{{ 'course' + ($index + 1) }}"
        class="form-group"
        ng-repeat="n in form track by $index">
-    <label class="col-xs-2 col-sm-2 col-md-2 control-label">{{ $index + 1 }}</label>
-    <div class="col-xs-5 col-sm-5 col-md-5">
+    <label class="col-xs-2 col-sm-2 col-md-1 control-label">{{ $index + 1 }}</label>
+    <div class="col-xs-5 col-sm-5 col-md-3">
       <select ng-attr-id="{{ 'course' + ($index + 1) + '-subject' }}"
               class="form-control"
               ng-model="form[$index].subject"
@@ -18,12 +18,12 @@
         <option value="" selected="">Subject</option>
       </select>
     </div>
-    <div class="col-xs-5 col-sm-5 col-md-5">
+    <div class="col-xs-5 col-sm-5 col-md-8">
       <select ng-attr-id="{{ 'course' + ($index + 1) + '-course' }}"
               class="form-control"
               ng-model="form[$index].courseNum">
         <option value="" selected="">Course</option>
-        <option ng-repeat="data in data.courses[form[$index].subject]">{{ data.courseNum }}</option>
+        <option value="{{ data.courseNum }}" ng-repeat="data in data.courses[form[$index].subject]">{{ data.courseNum }}: {{ data.desc }}</option>
       </select>
     </div>
   </div>

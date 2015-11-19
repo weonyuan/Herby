@@ -37,7 +37,7 @@ router.post('/courses', function(req, res, next) {
     sessionExisted = true;
   }
   
-  res.render('courses', { title: app, header: 'Add Courses', sessionExisted: sessionExisted });
+  res.render('courses', { title: app, header: 'Add Courses', alertMsg: sessionExisted });
 });
 
 router.get('/restore', function(req, res, next) {

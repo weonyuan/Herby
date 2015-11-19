@@ -23,7 +23,6 @@ app.controller('CoursesCtrl',
   }
 
   $scope.updateSelection = function() {
-    console.log($scope.form);
-    console.log($scope.data.courses[$scope.form[0].subject]);
+    console.log($scope.data.courses["ACC"][$scope.data.courses["ACC"]["courseNum"].indexOf("104")]);
   };
 }]);
