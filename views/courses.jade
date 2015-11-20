@@ -7,52 +7,15 @@ block content
       .alert.alert-info(role='alert')
         | It looks like you already have a previous session saved. If you want, you can 
         a.alert-link(href='/restore') restore your session here.
+    else if session
+    .alert.alert-success(role='alert') Session successfully restored!       
 
-    form.form-horizontal(ng-view='', action='/results', method='post')
+    form.form-horizontal(ng-view='', ng-init='restoreSession='+session action='/results', method='post')
       .form-group.col-xs-12.col-sm-12.col-md-12.pull-right
         select.form-control
           option(value='', selected='') Select a school
           option(value='Dutchess') Dutchess Community College
       #courses
-        #course1.form-group
-          label.col-xs-2.col-sm-2.col-md-2.control-label 1
-          .col-xs-5.col-sm-5.col-md-5
-            select#course1-subject.form-control
-              option(value='', selected='') Subject
-              option(value='ACC') ACC
-              option(value='MATH') MATH
-          .col-xs-5.col-sm-5.col-md-5
-            select#course1-course.form-control
-              option(value='', selected='') Course
-              option(value='101') 101
-              option(value='103') 103
-              option(value='201') 201
-        #course2.form-group
-          label.col-xs-2.col-sm-2.col-md-2.control-label 2
-          .col-xs-5.col-sm-5.col-md-5
-            select#course2-subject.form-control
-              option(value='', selected='') Subject
-              option(value='ACC') ACC
-              option(value='MATH') MATH
-          .col-xs-5.col-sm-5.col-md-5
-            select#course2-course.form-control
-              option(value='', selected='') Course
-              option(value='101') 101
-              option(value='103') 103
-              option(value='201') 201
-        #course3.form-group
-          label.col-xs-2.col-sm-2.col-md-2.control-label 3
-          .col-xs-5.col-sm-5.col-md-5
-            select#course3-subject.form-control
-              option(value='', selected='') Subject
-              option(value='ACC') ACC
-              option(value='MATH') MATH
-          .col-xs-5.col-sm-5.col-md-5
-            select#course3-course.form-control
-              option(value='', selected='') Course
-              option(value='101') 101
-              option(value='103') 103
-              option(value='201') 201
       .form-group.col-xs-3.col-sm-2.col-md-2(style='float:right')
         button.btn.btn-primary.pull-right(type='submit') Submit
     form(action='/save', method='post')

@@ -3,6 +3,10 @@ var document = require('browserify');
 var router = express.Router();
 var app = 'Foxify';
 
+var userSession = {
+  "dupe@dupe.com": { "sessionNum": "111111" }
+};
+
 function randomize() {
   var random = '';
   var limit = 6;
@@ -32,12 +36,28 @@ router.post('/form', function(req, res, next) {
 });
 
 router.post('/courses', function(req, res, next) {
-  var sessionExisted = false;
-  if (req.body.email === 'dupe@dupe.com') {
-    sessionExisted = true;
+  var existingSession = false;
+  var restoreSession = false;
+
+  // Alerts the user if they have a saved session
+  if (userSession[req.body.email] !== undefined) {
+    if (userSession[req.body.email]['sessionNum'] !== undefined ||
+        userSession[req.body.email]['sessionNum'] !== null) {
+      existingSession = true;
+    }
+  }
+
+  // Restores the user's session
+  if (userSession[req.body.email] !== undefined &&
+      req.body.sessionNum === userSession[req.body.email]['sessionNum']) {
+    console.log('restore!');
+    restoreSession = true;
+    existingSession = false;
+  } else {
+    console.log('There is no session associated with this email and session number.');
   }
   
-  res.render('courses', { title: app, header: 'Add Courses', alertMsg: sessionExisted });
+  res.render('courses', { title: app, header: 'Add Courses', alertMsg: existingSession, session: restoreSession });
 });
 
 router.get('/restore', function(req, res, next) {

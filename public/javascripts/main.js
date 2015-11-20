@@ -1,10 +1,34 @@
-var userSession = {
-  "dupe@dupe.com": {
-    "sessionNum": "111111",
+var sessions = {
+  "111111": {
+    "email": "dupe@dupe.com",
     "session": [
       {
         "subject": "ACC",
-        "course": "101"
+        "courseNum": "101"
+      },
+      {
+        "subject": "MATH",
+        "courseNum": "105"
+      },
+      {
+        "subject": "MATH",
+        "courseNum": "109"
+      },
+      {
+        "subject": "MATH",
+        "courseNum": "140"
+      },
+      {
+        "subject": "MATH",
+        "courseNum": "125"
+      },
+      {
+        "subject": "ACC",
+        "courseNum": "221"
+      },
+      {
+        "subject": "ACC",
+        "courseNum": "422"
       }
     ]
   }
