@@ -8,9 +8,9 @@ block content
         | It looks like you already have a previous session saved. If you want, you can 
         a.alert-link(href='/restore') restore your session here.
     else if session
-    .alert.alert-success(role='alert') Session successfully restored!       
+      .alert.alert-success(role='alert') Session successfully restored!       
 
-    form.form-horizontal(ng-view='', ng-init='restoreSession='+session action='/results', method='post')
+    form.form-horizontal(ng-view='', ng-init='restoreSession='+session, ng-submit='formSubmit()')
       .form-group.col-xs-12.col-sm-12.col-md-12.pull-right
         select.form-control
           option(value='', selected='') Select a school
@@ -18,7 +18,7 @@ block content
       #courses
       .form-group.col-xs-3.col-sm-2.col-md-2(style='float:right')
         button.btn.btn-primary.pull-right(type='submit') Submit
-    form(action='/save', method='post')
+    //form(action='/save', ng-submit='formSubmit()')
       .form-group.col-xs-9.col-sm-10.col-md-10
         button.btn.btn-default.pull-right(type='submit') Save Session
           

@@ -1,8 +1,8 @@
 'use strict';
 
 app.controller('CoursesCtrl',
-  ['$scope', '$routeParams',
-  function($scope, $routeParams) {
+  ['$scope', '$routeParams', '$http',
+  function($scope, $routeParams, $http) {
 
   $scope.courseTemplate = {
       subject: null,
@@ -17,8 +17,9 @@ app.controller('CoursesCtrl',
 
   $scope.restoreSession;
 
-  console.log($scope.restoreSession);
   if ($scope.restoreSession) {
+    document.getElementById('select-school').selectedIndex = 1;
+
     for (var i = 0; i < sessions['111111']['session'].length; i++) {
       if (i >= $scope.form.length) {
         $scope.form.push({});
@@ -38,6 +39,15 @@ app.controller('CoursesCtrl',
   }
 
   $scope.updateSelection = function() {
-    console.log($scope.data.courses["ACC"][$scope.data.courses["ACC"]["courseNum"].indexOf("104")]);
+    
   };
+
+  $scope.formSubmit = function() {
+    $http.post('/save', $scope.form)
+    .success(function(data) {
+      console.log('posted successfully!');
+    }).error(function(data) {
+      console.error('error....');
+    })
+  }
 }]);

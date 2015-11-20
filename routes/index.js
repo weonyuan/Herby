@@ -50,13 +50,13 @@ router.post('/courses', function(req, res, next) {
   // Restores the user's session
   if (userSession[req.body.email] !== undefined &&
       req.body.sessionNum === userSession[req.body.email]['sessionNum']) {
-    console.log('restore!');
     restoreSession = true;
     existingSession = false;
   } else {
     console.log('There is no session associated with this email and session number.');
   }
-  
+
+  console.log(restoreSession);  
   res.render('courses', { title: app, header: 'Add Courses', alertMsg: existingSession, session: restoreSession });
 });
 
@@ -69,6 +69,7 @@ router.post('/results', function(req, res, next) {
 });
 
 router.post('/save', function(req, res, next) {
+  console.log(req.body);
   res.render('session_saved', { title: app, header: 'Save Session', sessionNum: randomize() });
 });
 
