@@ -1,13 +1,15 @@
 'use strict';
 
 app.controller('CoursesCtrl',
-  ['$scope', '$routeParams', '$http',
-  function($scope, $routeParams, $http) {
+  ['$scope', '$routeParams', '$http', '$location',
+  function($scope, $routeParams, $http, $location) {
 
   $scope.courseTemplate = {
       subject: null,
       courseNum: null
   }
+
+  console.log($http.get('http://10.10.7.161:3000/subjects'));
 
   $scope.form = [
     { subject: null, courseNum: null },
