@@ -9,7 +9,12 @@ app.controller('CoursesCtrl',
       courseNum: null
   }
 
-  console.log($http.get('http://10.10.7.161:3000/subjects'));
+  $http.get('http://10.10.7.161:3000/subjects')
+  .then(function(response) {
+    $scope.subjects = response.data;
+  }, function(response) {
+    console.log('Failed to load data.');
+  });
 
   $scope.form = [
     { subject: null, courseNum: null },
@@ -41,7 +46,6 @@ app.controller('CoursesCtrl',
   }
 
   $scope.updateSelection = function() {
-    
   };
 
   $scope.formSubmit = function() {

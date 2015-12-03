@@ -13,9 +13,9 @@
       <select ng-attr-id="{{ 'course' + ($index + 1) + '-subject' }}"
               class="form-control"
               ng-model="form[$index].subject"
-              ng-change="updateSelection()"
-              ng-options="key as key for (key, value) in data.courses">
+              ng-change="updateSelection()">
         <option value="" selected="">Subject</option>
+        <option value="{{ subject.subject }}" ng-repeat="subject in subjects">{{ subject.subject }}</option>
       </select>
     </div>
     <div class="col-xs-5 col-sm-7 col-md-7">
