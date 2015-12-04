@@ -13,17 +13,17 @@
       <select ng-attr-id="{{ 'course' + ($index + 1) + '-subject' }}"
               class="form-control"
               ng-model="form[$index].subject"
-              ng-change="updateSelection()">
+              ng-change="updateSelection(form[$index].subject, $index)"
+              ng-options="value.subject as value.subject for (key, value) in subjects">
         <option value="" selected="">Subject</option>
-        <option value="{{ subject.subject }}" ng-repeat="subject in subjects">{{ subject.subject }}</option>
       </select>
     </div>
     <div class="col-xs-5 col-sm-7 col-md-7">
       <select ng-attr-id="{{ 'course' + ($index + 1) + '-course' }}"
               class="form-control"
-              ng-model="form[$index].courseNum">
+              ng-model="form[$index].coursenum">
         <option value="" selected="">Course</option>
-        <option value="{{ data.courseNum }}" ng-repeat="data in data.courses[form[$index].subject]">{{ data.courseNum }}: {{ data.desc }}</option>
+        <option value="{{ course.coursenum }}" ng-repeat="course in courses[form[$index].subject]">{{ course.coursenum }}: {{ course.coursename }}</option>
       </select>
     </div>
   </div>

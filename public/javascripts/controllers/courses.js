@@ -4,10 +4,11 @@ app.controller('CoursesCtrl',
   ['$scope', '$routeParams', '$http', '$location',
   function($scope, $routeParams, $http, $location) {
 
-  $scope.courseTemplate = {
-      subject: null,
-      courseNum: null
-  }
+  $scope.form = [
+    { subject: null, coursenum: null },
+    { subject: null, coursenum: null },
+    { subject: null, coursenum: null }
+  ];
 
   $http.get('http://10.10.7.161:3000/subjects')
   .then(function(response) {
@@ -16,14 +17,20 @@ app.controller('CoursesCtrl',
     console.log('Failed to load data.');
   });
 
-  $scope.form = [
-    { subject: null, courseNum: null },
-    { subject: null, courseNum: null },
-    { subject: null, courseNum: null }
-  ]
+  $scope.courses = {};
+
+  $scope.getCourses = function(subject) {
+    if ($scope.courses[subject] === undefined) {
+      $http.get('http://10.10.7.161:3000/DCCCourseInfo/' + subject)
+      .then(function(response) {
+        $scope.courses[subject] = response.data[subject];
+      }, function(response) {
+        console.log('Failed to load data.');
+      });
+    }
+  };
 
   $scope.restoreSession;
-
   if ($scope.restoreSession) {
     document.getElementById('select-school').selectedIndex = 1;
 
@@ -33,19 +40,18 @@ app.controller('CoursesCtrl',
       }
 
       $scope.form[i]['subject'] = sessions['111111']['session'][i]['subject'];
-      $scope.form[i]['courseNum'] = sessions['111111']['session'][i]['courseNum'];
+      $scope.getCourses($scope.form[i]['subject']);
+      $scope.form[i]['coursenum'] = sessions['111111']['session'][i]['coursenum'];
     }
   }
 
-  $scope.data = {
-    courses: courses
-  }
-
   $scope.addCourse = function() {
-    $scope.form.push($scope.courseTemplate);
+    $scope.form.push({});
   }
 
-  $scope.updateSelection = function() {
+  $scope.updateSelection = function(subject, index) {
+    $scope.form[index].coursenum = null;
+    $scope.getCourses(subject);
   };
 
   $scope.formSubmit = function() {

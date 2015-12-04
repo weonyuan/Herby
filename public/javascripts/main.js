@@ -3,55 +3,35 @@ var sessions = {
     "email": "dupe@dupe.com",
     "session": [
       {
-        "subject": "ACC",
-        "courseNum": "101"
+        "subject": "POSC",
+        "coursenum": "121"
       },
       {
         "subject": "MATH",
-        "courseNum": "105"
+        "coursenum": "125"
       },
       {
         "subject": "MATH",
-        "courseNum": "109"
+        "coursenum": "140"
       },
       {
-        "subject": "MATH",
-        "courseNum": "140"
+        "subject": "MUS",
+        "coursenum": "221"
       },
       {
-        "subject": "MATH",
-        "courseNum": "125"
+        "subject": "ART",
+        "coursenum": "103"
       },
       {
-        "subject": "ACC",
-        "courseNum": "221"
+        "subject": "PHIL",
+        "coursenum": "205"
       },
       {
-        "subject": "ACC",
-        "courseNum": "422"
+        "subject": "CRJU",
+        "coursenum": "250"
       }
     ]
   }
-};
-
-var courses = {
-  "ACC": [
-    { "courseNum": "101", "desc": "ACCOUNTING I" },
-    { "courseNum": "102", "desc": "ACCOUNTING II" },
-    { "courseNum": "104", "desc": "FINANCIAL ACCTNG" },
-    { "courseNum": "105", "desc": "ACCOUNTING ELECTIVE" },
-    { "courseNum": "213", "desc": "ACCOUNTING SYSTEMS" },
-    { "courseNum": "220", "desc": "ACCT COURSE" },
-    { "courseNum": "221", "desc": "INTERM ACCTING I" },
-    { "courseNum": "422", "desc": "INTERM ACCTING II" }
-  ],
-  "MATH": [
-    { "courseNum": "105", "desc": "MATH COURSE" },
-    { "courseNum": "109", "desc": "EXCURSIONS IN MATH I" },
-    { "courseNum": "115", "desc": "PRE-CALCULUS" },
-    { "courseNum": "125", "desc": "CALC:MGMT APPLCTN" },
-    { "courseNum": "140", "desc": "DISCRETE MATH I" }
-  ]
 };
 
 function restore() {
