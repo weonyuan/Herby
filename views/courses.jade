@@ -2,7 +2,6 @@ extends layout
 
 block content
   div.container.container-fluid.center-block
-    h1=header
     if alertMsg
       .alert.alert-info(role='alert')
         | It looks like you already have a previous session saved. If you want, you can 
@@ -11,14 +10,4 @@ block content
       .alert.alert-success(role='alert') Session successfully restored!       
 
     form.form-horizontal(ng-view='', ng-init='restoreSession='+session, ng-submit='formSubmit()')
-      .form-group.col-xs-12.col-sm-12.col-md-12.pull-right
-        select.form-control
-          option(value='', selected='') Select a school
-          option(value='Dutchess') Dutchess Community College
-      #courses
-      .form-group.col-xs-3.col-sm-2.col-md-2(style='float:right')
-        button.btn.btn-primary.pull-right(type='submit') Submit
-    //form(action='/save', ng-submit='formSubmit()')
-      .form-group.col-xs-9.col-sm-10.col-md-10
-        button.btn.btn-default.pull-right(type='submit') Save Session
           

@@ -4,6 +4,8 @@ app.controller('CoursesCtrl',
   ['$scope', '$routeParams', '$http', '$location',
   function($scope, $routeParams, $http, $location) {
 
+  $scope.title = 'Add Courses';
+
   // List of courses to be submitted
   $scope.form = [
     { subject: null, coursenum: null },
@@ -57,17 +59,30 @@ app.controller('CoursesCtrl',
     $scope.form.push({});
   }
 
+  $scope.removeCourse = function(index) {
+    $scope.form.splice(index, 1);
+  }
+
   $scope.updateSelection = function(subject, index) {
     $scope.form[index].coursenum = null;
     $scope.getCourses(subject);
   };
 
-  $scope.formSubmit = function() {
+  $scope.saveSession = function() {
     $http.post('/save', $scope.form)
     .success(function(data) {
-      console.log('posted successfully!');
+      console.log('success!');
     }).error(function(data) {
       console.error('error....');
     })
-  }
+  };
+
+  $scope.formSubmit = function() {
+    $http.post('/results', $scope.form)
+    .success(function(data) {
+      $location.path('submitted');
+    }).error(function(data) {
+      console.error('error....');
+    })
+  };
 }]);
