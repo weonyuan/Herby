@@ -8,11 +8,8 @@
   min-width: 200px;
 }
 
-#addText {
-  position: relative;
-  left: -52%;
-  padding-top: 16%;
-  z-index: 99;
+.credit-header {
+  font-size: 1.2em;
 }
 
 footer {
