@@ -8,6 +8,13 @@
   min-width: 200px;
 }
 
+#addText {
+  position: relative;
+  left: -52%;
+  padding-top: 16%;
+  z-index: 99;
+}
+
 footer {
   bottom: 1%;
   font-size: 0.9em;

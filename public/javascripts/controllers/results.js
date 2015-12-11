@@ -15,8 +15,6 @@ app.controller('ResultsCtrl',
     console.log('Failed to load data.');
   });
 
-  $scope.major = '*';
-
   $scope.creditsEarned = 0;
   $scope.remainingCredits = 0;
   $scope.majorCredits = 0;
@@ -25,6 +23,13 @@ app.controller('ResultsCtrl',
     $http.get('http://10.10.7.161:3000/maristtransferclasses/' + $scope.major + '/charles.ropes1@marist.edu')
     .then(function(response) {
       $scope.courses = response.data;
+
+      $scope.creditsEarned = $scope.courses.creditTotal;
+      $scope.remainingCredits = 120 - $scope.creditsEarned;
+      $scope.majorCredits = $scope.courses.majorCreditTotal;
+      $scope.percentComplete = $scope.creditsEarned / 120 * 100;
+
+
       $scope.updateReport();
     }, function(response) {
       console.log(response);
@@ -34,18 +39,29 @@ app.controller('ResultsCtrl',
   $scope.getCreditsInfo();
 
   $scope.updateReport = function() {
-    if ($scope.major !== null) {
-      if ($scope.courses !== null) {
-        $scope.creditsEarned = $scope.courses.creditTotal;
-        $scope.remainingCredits = 120 - $scope.creditsEarned;
-        $scope.majorCredits = $scope.courses.majorCreditTotal;
+    $('span#majorCredits').empty();
+    if ($scope.major === null || $scope.major === undefined || $scope.major === '*') {
+      $scope.major = '*';
+    } else {
+      $('#transferredCredits').append('<span id="majorCredits"><strong>' + $scope.majorCredits + ' credits</strong> will cover a ' + $scope.major + ' major.</span>');
+    }
 
-        $scope.renderChart();
-      }
+    if ($scope.courses !== null) {
+      $scope.creditsEarned = $scope.courses.creditTotal;
+      $scope.remainingCredits = 120 - $scope.creditsEarned;
+      $scope.majorCredits = $scope.courses.majorCreditTotal;
+
+      $scope.renderChart();
     }
   };
 
   $scope.renderChart = function() {
+    var title = 'Credit Pathway';
+
+    if ($scope.major !== '*') {
+      title = 'Credit Pathway for ' + $scope.major + ' Major';
+    }
+
     // Create the chart
     $('#chart').highcharts({
         chart: {
@@ -53,7 +69,7 @@ app.controller('ResultsCtrl',
             renderTo: 'chart'
         },
         title: {
-            text: 'Credit Pathway for ' + $scope.major + ' Major'
+            text: title
         },
         plotOptions: {
             pie: {
@@ -85,7 +101,14 @@ app.controller('ResultsCtrl',
                 name: 'Major credits',
                 y: $scope.majorCredits,
                 color: Highcharts.getOptions().colors[2]
-            }]
+            }],
+            point: {
+                events: {
+                    legendItemClick: function () {
+                        return false; // <== returning false will cancel the default action
+                    }
+                }
+            }
         }]
     });
   }
