@@ -1,8 +1,10 @@
 'use strict';
 
 app.controller('ResultsCtrl',
-  ['$scope', '$routeParams', '$http', '$location',
-  function($scope, $routeParams, $http, $location) {
+  ['$scope', '$routeParams', '$http', '$location', '$q',
+  function($scope, $routeParams, $http, $location, $q) {
+
+  var deferred = $q.defer();
 
   $scope.title = 'Results';
   // Load the list of majors upon startup
@@ -14,118 +16,79 @@ app.controller('ResultsCtrl',
   });
 
   $scope.major = '*';
-  $http.get('http://10.10.7.161:3000/maristtransferclasses/' + $scope.major + '/charles.ropes1@marist.edu')
-  .then(function(response) {
-    $scope.courses = response.data;
-  }, function(response) {
-    console.log('Failed to load data.');
-  });
 
+  $scope.creditsEarned = 0;
+  $scope.remainingCredits = 0;
+  $scope.majorCredits = 0;
+
+  $scope.getCreditsInfo = function() {
+    $http.get('http://10.10.7.161:3000/maristtransferclasses/' + $scope.major + '/charles.ropes1@marist.edu')
+    .then(function(response) {
+      $scope.courses = response.data;
+      $scope.updateReport();
+    }, function(response) {
+      console.log(response);
+    });
+  };
+
+  $scope.getCreditsInfo();
 
   $scope.updateReport = function() {
     if ($scope.major !== null) {
-      console.log($scope.major);
+      if ($scope.courses !== null) {
+        $scope.creditsEarned = $scope.courses.creditTotal;
+        $scope.remainingCredits = 120 - $scope.creditsEarned;
+        $scope.majorCredits = $scope.courses.majorCreditTotal;
 
-      $http.get('http://10.10.7.161:3000/maristtransferclasses/' + $scope.major + '/charles.ropes1@marist.edu')
-      .then(function(response) {
-        $scope.courses = response.data;
-      }, function(response) {
-        console.log('Failed to load data.');
-      });
-
-      console.log($scope.courses);
+        $scope.renderChart();
+      }
     }
-  }
+  };
 
-  var categories = ['MSIE', 'Firefox', 'Chrome', 'Safari', 'Opera'],
-      data = [{
-          y: 0,
-          color: '#286090',
-          drilldown: {
-              name: 'Opera versions',
-              categories: ['Opera v12.x', 'Opera v27', 'Opera v28', 'Opera v29'],
-              data: [0.34, 0.17, 0.24, 0.16]
-          }
-      }],
-      browserData = [],
-      versionsData = [],
-      i,
-      j,
-      dataLen = data.length,
-      drillDataLen,
-      brightness;
-
-
-    // Build the data arrays
-    for (i = 0; i < dataLen; i += 1) {
-
-        // add browser data
-        browserData.push({
-            name: categories[i],
-            y: data[i].y,
-            color: data[i].color
-        });
-
-        // add version data
-        drillDataLen = data[i].drilldown.data.length;
-        for (j = 0; j < drillDataLen; j += 1) {
-            brightness = 0.2 - (j / drillDataLen) / 5;
-            versionsData.push({
-                name: data[i].drilldown.categories[j],
-                y: data[i].drilldown.data[j],
-                color: Highcharts.Color(data[i].color).brighten(brightness).get()
-            });
-        }
-    }
-
+  $scope.renderChart = function() {
     // Create the chart
     $('#chart').highcharts({
         chart: {
-            type: 'pie'
+            type: 'pie',
+            renderTo: 'chart'
         },
         title: {
-            text: 'Credit Breakdown'
-        },
-        yAxis: {
-            title: {
-                text: 'Credit Breakdown'
-            }
+            text: 'Credit Pathway for ' + $scope.major + ' Major'
         },
         plotOptions: {
             pie: {
-                shadow: false,
-                center: ['50%', '40%']
+                innerSize: '60%',
+                size: '100%',
+                dataLabels: {
+                  enabled: false
+                },
+                showInLegend: true,
+                shadow: false
             }
         },
         tooltip: {
-            valueSuffix: '%'
+            formatter: function() {
+                return '<b>'+ this.point.y +'</b> credits (' + (this.point.y/120)*100 + '%)' ;
+            }
         },
         series: [{
-            name: 'Browsers',
-            data: browserData,
-            size: '60%',
-            innerSize: '20%',
-            dataLabels: {
-                formatter: function () {
-                    return this.y > 5 ? this.point.name : null;
-                },
-                color: '#ffffff',
-                distance: -30
-            }
-        }, {
-            name: 'Versions',
-            data: versionsData,
-            size: '80%',
-            innerSize: '60%',
-            dataLabels: {
-                formatter: function () {
-                    // display only if larger than 1
-                    return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%' : null;
-                }
-            }
+            name: 'Credit Pathway to ' + $scope.major,
+            data: [{
+                name: 'Credits remaining',
+                y: $scope.remainingCredits,
+                color: Highcharts.getOptions().colors[0]
+            }, {
+                name: 'Non-major credits',
+                y: $scope.creditsEarned - $scope.majorCredits,
+                color: Highcharts.getOptions().colors[1]
+            }, {
+                name: 'Major credits',
+                y: $scope.majorCredits,
+                color: Highcharts.getOptions().colors[2]
+            }]
         }]
     });
-
+  }
 
   $scope.editCourses = function() {
     $location.path('/courses');

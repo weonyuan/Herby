@@ -4,6 +4,10 @@
   }
 }
 
+#chart {
+  min-width: 200px;
+}
+
 footer {
   bottom: 1%;
   font-size: 0.9em;

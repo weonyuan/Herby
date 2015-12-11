@@ -3,13 +3,13 @@
   <select id="select-major"
           class="form-control"
           ng-model="major"
-          ng-change="updateReport()"
+          ng-change="getCreditsInfo()"
           ng-options="value.majorname as value.majorname for (key, value) in majors.majors">
     <option value="" selected="">Select a major</option>
   </select>
 </div>
 
-<div id="chart"></div>
+<div id="chart" class="col-xs-12 col-sm-12 col-md-12"></div>
 <div>Here are your credits that will transfer:</div>
 <div>{{ (courses.creditTotal / 120) * 100 }}%</div>
 
