@@ -8,16 +8,6 @@ app.controller('ResultsCtrl',
 
   $scope.title = 'Results';
 
-  $http.get('http://10.10.7.161:3000/studentcourseinfo/111111')
-    .then(function(response) {
-      $scope.transferCourses = response.data;
-
-    }, function(response) {
-      console.log(response);
-  });
-
-  console.log($scope.transferCourses);
-
   // Load the list of majors upon startup
   $http.get('http://10.10.7.161:3000/majors')
   .then(function(response) {
@@ -126,6 +116,6 @@ app.controller('ResultsCtrl',
   }
 
   $scope.editCourses = function() {
-    $location.path('/courses');
+    $location.path('/');
   }
 }]);

@@ -10,7 +10,7 @@ var routePath = './routes/';
 var index = require('./routes/index.js');
 var courses = require('./routes/courses.js');
 var session = require('./routes/session_saved.js');
-var results = require('./routes/results.js');
+var submitted = require('./routes/submitted.js');
 
 var app = express();
 app.listen(8888);
@@ -40,7 +40,7 @@ app.use(function(req, res, next) {
 app.use('/', index);
 app.use('/courses', courses);
 app.use('/save', session);
-app.use('/results', results);
+app.use('/submitted', submitted);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

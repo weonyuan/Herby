@@ -44,6 +44,8 @@ router.post('/form', function(req, res, next) {
 router.post('/courses', function(req, res, next) {
   var existingSession = false;
   var restoreSession = false;
+  var name = req.body.firstName + " " + req.body.lastName;
+  var email = req.body.email;
 
   // Alerts the user if they have a saved session
   if (userSession[req.body.email] !== undefined) {
@@ -58,20 +60,17 @@ router.post('/courses', function(req, res, next) {
       req.body.sessionNum === userSession[req.body.email]['sessionNum']) {
     restoreSession = true;
     existingSession = false;
-  } else {
-    console.log('There is no session associated with this email and session number.');
   }
 
-  console.log(restoreSession);  
-  res.render('courses', { title: app, header: 'Add Courses', alertMsg: existingSession, session: restoreSession });
+  res.render('courses', { title: app, header: 'Add Courses', alertMsg: existingSession, session: restoreSession, name: name, email: email });
 });
 
 router.get('/restore', function(req, res, next) {
   res.render('restore', { title: app, header: 'Restore Session' });
 });
 
-router.post('/results', function(req, res, next) {
-  res.render('results', { title: app, header: 'Results' });
+router.post('/submitted', function(req, res, next) {
+  res.render('submitted', { title: app, header: 'Results' });
 });
 
 router.post('/save', function(req, res, next) {

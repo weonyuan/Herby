@@ -5,9 +5,9 @@ var app = angular
     'ngRoute'
   ])
 
-  .config(['$routeProvider', function($routeProvider) {
+  .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider
-      .when('/courses', {
+      .when('/', {
         templateUrl: 'views/courses.html',
         controller: 'CoursesCtrl'
       })
@@ -16,6 +16,6 @@ var app = angular
         controller: 'ResultsCtrl'
       })
       .otherwise({
-        redirectTo: '/courses'
+        redirectTo: '/'
       });
   }]);

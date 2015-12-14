@@ -6,6 +6,10 @@ app.controller('CoursesCtrl',
 
   $scope.title = 'Add Courses';
 
+  $scope.name;
+  $scope.email;
+  console.log($scope.name + ': ' + $scope.email);
+
   // List of courses to be submitted
   $scope.form = [
     { subject: null, coursenum: null },
@@ -73,16 +77,16 @@ app.controller('CoursesCtrl',
     .success(function(data) {
       console.log('success!');
     }).error(function(data) {
-      console.error('error....');
+      console.error('An error has occurred.');
     })
   };
 
   $scope.formSubmit = function() {
-    $http.post('/results', $scope.form)
+    $http.post('/submitted', $scope.form)
     .success(function(data) {
       $location.path('submitted');
     }).error(function(data) {
-      console.error('error....');
+      console.error('An error has occurred.');
     })
   };
 }]);
