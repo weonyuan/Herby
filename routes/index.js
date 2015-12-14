@@ -4,10 +4,6 @@ var http = require('http');
 var router = express.Router();
 var app = 'Foxify';
 
-var userSession = {
-  "dupe@dupe.com": { "sessionNum": "111111" }
-};
-
 router.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -47,14 +43,35 @@ router.post('/courses', function(req, res, next) {
       port: 3000,
       path: '/sesid/' + email,
       method: 'GET'
-  };
+  }
 
-  var req = http.request(options, function(res) {
-    var userSession;
+  var req = http.request(options, function(response) {
+    var data = [];
+    response.setEncoding('utf8');
+    response.on('data', function(chunk) {
+      data.push(chunk);
+    })
+    response.on('end', function() {
+      var result = JSON.parse(data.join(''));
 
-    res.setEncoding('utf8');
-    res.on('data', function(chunk) {
-      userSession = chunk;
+      userSession = result;
+
+      // Alerts the user if they have a saved session
+      if (userSession[email] !== undefined) {
+        existingSession = true;
+      }
+
+      // Restores the user's session
+      if (sessionID === userSession[email]) {
+        restoreSession = true;
+        existingSession = false;
+      }
+
+      console.log(userSession[email]);
+      console.log(restoreSession);
+      console.log(existingSession);
+  
+      res.render('courses', { title: app, header: 'Add Courses', alertMsg: existingSession, session: restoreSession, firstName: firstName, lastName: lastName, email: email, sessionID: sessionID });
     })
     req.on('error', function(e) {
         console.log('\n\n==========ERROR==============')
@@ -63,23 +80,6 @@ router.post('/courses', function(req, res, next) {
   });
 
   req.end();
-
-  // Alerts the user if they have a saved session
-  if (userSession[email] !== undefined) {
-    if (userSession[email]['sessionNum'] !== undefined ||
-        userSession[email]['sessionNum'] !== null) {
-      existingSession = true;
-    }
-  }
-  
-  // Restores the user's session
-  if (userSession[email] !== undefined &&
-      sessionID === userSession[email]['sessionNum']) {
-    restoreSession = true;
-    existingSession = false;
-  }
-
-  res.render('courses', { title: app, header: 'Add Courses', alertMsg: existingSession, session: restoreSession, firstName: firstName, lastName: lastName, email: email, sessionID: sessionID });
 });
 
 router.get('/restore', function(req, res, next) {
