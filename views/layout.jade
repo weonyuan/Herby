@@ -8,7 +8,19 @@ html
     script(type='text/javascript', src='bower_components/bootstrap/dist/js/bootstrap.js')
     script(type='text/javascript', src='bower_components/angular/angular.js')
     script(type='text/javascript', src='bower_components/angular-route/angular-route.js')
-    script(type='text/javascript', src='bower_components/highcharts/lib/highcharts.js')
+    script(type='text/javascript').
+      (function() {
+      var link_element = document.createElement("link"),
+      s = document.getElementsByTagName("script")[0];
+      if (window.location.protocol !== "http:" && window.location.protocol !== "https:") {
+      link_element.href = "http:";
+      }
+      link_element.href += "//fonts.googleapis.com/css?family=Roboto:100normal,100italic,300normal,300italic,400normal,400italic,500normal,500italic,700normal,700italic,900normal,900italic|Open+Sans:400normal|Lato:400normal|Oswald:400normal|Raleway:400normal|PT+Sans:400normal|Source+Sans+Pro:400normal|Droid+Sans:400normal|Ubuntu:400normal|Roboto+Condensed:400normal|Montserrat:400normal&subset=all";
+      link_element.rel = "stylesheet";
+      link_element.type = "text/css";
+      s.parentNode.insertBefore(link_element, s);
+      })();
+
 
     script(type='text/javascript', src='app.js')
     script(type='text/javascript', src='javascripts/main.js')

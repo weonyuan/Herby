@@ -7,6 +7,17 @@ app.controller('ResultsCtrl',
   var deferred = $q.defer();
 
   $scope.title = 'Results';
+
+  $http.get('http://10.10.7.161:3000/studentcourseinfo/111111')
+    .then(function(response) {
+      $scope.transferCourses = response.data;
+
+    }, function(response) {
+      console.log(response);
+  });
+
+  console.log($scope.transferCourses);
+
   // Load the list of majors upon startup
   $http.get('http://10.10.7.161:3000/majors')
   .then(function(response) {
@@ -22,11 +33,12 @@ app.controller('ResultsCtrl',
   $scope.getCreditsInfo = function() {
     $http.get('http://10.10.7.161:3000/maristtransferclasses/' + $scope.major + '/charles.ropes1@marist.edu')
     .then(function(response) {
-      $scope.courses = response.data;
+      $scope.maristCourses = response.data;
+      $scope.maristCourses.equivalent = $scope.transferCourses;
 
-      $scope.creditsEarned = $scope.courses.creditTotal;
+      $scope.creditsEarned = $scope.maristCourses.creditTotal;
       $scope.remainingCredits = 120 - $scope.creditsEarned;
-      $scope.majorCredits = $scope.courses.majorCreditTotal;
+      $scope.majorCredits = $scope.maristCourses.majorCreditTotal;
       $scope.percentComplete = $scope.creditsEarned / 120 * 100;
 
 
@@ -46,10 +58,10 @@ app.controller('ResultsCtrl',
       $('#transferredCredits').append('<span id="majorCredits"><strong>' + $scope.majorCredits + ' credits</strong> will cover a ' + $scope.major + ' major.</span>');
     }
 
-    if ($scope.courses !== null) {
-      $scope.creditsEarned = $scope.courses.creditTotal;
+    if ($scope.maristCourses !== null) {
+      $scope.creditsEarned = $scope.maristCourses.creditTotal;
       $scope.remainingCredits = 120 - $scope.creditsEarned;
-      $scope.majorCredits = $scope.courses.majorCreditTotal;
+      $scope.majorCredits = $scope.maristCourses.majorCreditTotal;
 
       $scope.renderChart();
     }
@@ -92,15 +104,15 @@ app.controller('ResultsCtrl',
             data: [{
                 name: 'Credits remaining',
                 y: $scope.remainingCredits,
-                color: Highcharts.getOptions().colors[0]
+                color: "#D1D0CE"
             }, {
                 name: 'Non-major credits',
                 y: $scope.creditsEarned - $scope.majorCredits,
-                color: Highcharts.getOptions().colors[1]
+                color: "#808080"
             }, {
                 name: 'Major credits',
                 y: $scope.majorCredits,
-                color: Highcharts.getOptions().colors[2]
+                color: "#B31B1B"
             }],
             point: {
                 events: {

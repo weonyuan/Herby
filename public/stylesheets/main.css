@@ -4,6 +4,19 @@
   }
 }
 
+body {
+  font-family: "Roboto";
+}
+
+.navbar-brand {
+  font-size: 1.6em;
+}
+
+.no-side-paddings {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
 #chart {
   min-width: 200px;
 }
