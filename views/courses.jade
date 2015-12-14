@@ -8,5 +8,5 @@ block content
         a.alert-link(href='/restore') restore your session here.
     else if session
       .alert.alert-success(role='alert') Session successfully restored!
-    form.form-horizontal(ng-view='', ng-init='name=\"'+name+'\";email=\"'+email+'\";restoreSession='+session, ng-submit='formSubmit()')
+    form.form-horizontal(ng-view='', ng-init='firstName=\"'+firstName+'\";lastName=\"'+lastName+'\";email=\"'+email+'\";restoreSession='+session, ng-submit='formSubmit()')
           

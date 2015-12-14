@@ -1,10 +1,10 @@
 'use strict';
 
-app.controller('CoursesCtrl',
+app.controller('SessionsCtrl',
   ['$scope', '$routeParams', '$http', '$location',
   function($scope, $routeParams, $http, $location) {
 
-  $scope.title = 'Add Courses';
+  $scope.title = 'Save Session';
 
   $scope.firstName;
   $scope.lastName;
@@ -84,7 +84,7 @@ app.controller('CoursesCtrl',
   };
 
   $scope.formSubmit = function() {
-    /*$http.post('http://10.10.7.161:3000/insertstudent/' + 
+    /*$http.post('/save' + 
       $scope.firstName + '/' + $scope.lastName + '/' +
       $scope.email, $scope.form)
       .then(function(data) {

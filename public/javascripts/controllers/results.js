@@ -98,7 +98,7 @@ app.controller('ResultsCtrl',
             }, {
                 name: 'Non-major credits',
                 y: $scope.creditsEarned - $scope.majorCredits,
-                color: "#808080"
+                color: "#000000"
             }, {
                 name: 'Major credits',
                 y: $scope.majorCredits,

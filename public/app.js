@@ -15,6 +15,10 @@ var app = angular
         templateUrl: 'views/results.html',
         controller: 'ResultsCtrl'
       })
+      .when('/save', {
+        templateUrl: 'views/session.html',
+        controller: 'SessionCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

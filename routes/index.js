@@ -44,7 +44,8 @@ router.post('/form', function(req, res, next) {
 router.post('/courses', function(req, res, next) {
   var existingSession = false;
   var restoreSession = false;
-  var name = req.body.firstName + " " + req.body.lastName;
+  var firstName = req.body.firstName;
+  var lastName = req.body.lastName;
   var email = req.body.email;
 
   // Alerts the user if they have a saved session
@@ -62,7 +63,7 @@ router.post('/courses', function(req, res, next) {
     existingSession = false;
   }
 
-  res.render('courses', { title: app, header: 'Add Courses', alertMsg: existingSession, session: restoreSession, name: name, email: email });
+  res.render('courses', { title: app, header: 'Add Courses', alertMsg: existingSession, session: restoreSession, firstName: firstName, lastName: lastName, email: email });
 });
 
 router.get('/restore', function(req, res, next) {
