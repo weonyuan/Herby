@@ -55,6 +55,8 @@ app.controller('CoursesCtrl',
     $http.get('http://10.10.7.161:3000/studentcourseinfo/' + $scope.sessionID)
     .then(function(response) {
       $scope.session = response.data.studentClasses;
+      console.log($scope.session);
+      console.log($scope.sessionID);
       for (var i = 0; i < $scope.session.length; i++) {
         // Expand the form if the session's courses surpass the form's default size
         if (i >= $scope.form.length) {
@@ -88,26 +90,61 @@ app.controller('CoursesCtrl',
   $scope.saveSession = function() {
     $scope.sessionID = sessionService.generateSessionID();
 
-    var request = {
-      method: 'POST',
-      url: 'http://10.10.7.161:3000/insertstudentclasses',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      data: {
-        "student_classes": {
-          "sesID": $scope.sessionID,
-          "emailAdd": $scope.email,
-          "session": $scope.form
-        }
-      }
-    }
+    $http.get('http://10.10.7.161:3000/sesid/' + $scope.email)
+    .then(function(response) {
+      // User does not exist in the system
+      if (response.data[$scope.email] === null ||
+          response.data[$scope.email] === undefined) {
+        $http.post('http://10.10.7.161:3000/insertstudent/' + $scope.firstName + '/' + $scope.lastName + '/' + $scope.email, $scope.form)
+          .then(function(data) {
+            var request = {
+                  method: 'POST',
+                  url: 'http://10.10.7.161:3000/insertstudentclasses',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  data: {
+                    "student_classes": {
+                      "sesID": $scope.sessionID,
+                      "emailAdd": $scope.email,
+                      "session": $scope.form
+                    }
+                  }
+                }
 
-    $http(request).then(function(data) {
-        $location.path('/save');
-    }, function(response) {
-      console.log('An error has occurred.');
-    });
+                $http(request).then(function(data) {
+                    console.log(data);
+                    $location.path('/save');
+                }, function(response) {
+                  console.log('An error has occurred.');
+                });
+          }, function(response) {
+            console.log('An error has occurred.');
+        });
+      } else {
+        var request = {
+              method: 'POST',
+              url: 'http://10.10.7.161:3000/insertstudentclasses',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              data: {
+                "student_classes": {
+                  "sesID": $scope.sessionID,
+                  "emailAdd": $scope.email,
+                  "session": $scope.form
+                }
+              }
+            }
+
+            $http(request).then(function(data) {
+                console.log(data);
+                $location.path('/save');
+            }, function(response) {
+              console.log('An error has occurred.');
+            });
+      }
+    })
   };
 
   $scope.formSubmit = function() {

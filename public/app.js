@@ -35,7 +35,7 @@ var app = angular
 
           // Generate a random session ID
           for (var i = 0; i < limit; i++) {
-            sessionID += Math.floor(Math.random() * 10);
+            sessionID += String(Math.floor(Math.random() * 10)).toString();
           }
 
           localStorage.setItem('sessionID', sessionID);
