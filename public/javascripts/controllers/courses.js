@@ -18,7 +18,11 @@ app.controller('CoursesCtrl',
     { 'subject': null, 'coursenum': null }
   ];
 
-  $scope.sessionID = sessionService.generateSessionID();
+  if ($scope.sessionID === undefined) {
+    $scope.sessionID = sessionService.generateSessionID();
+  } else {
+    $scope.sessionID;
+  }
 
   // Load up the list of subjects upon startup
   $http.get('http://10.10.7.161:3000/subjects')
@@ -48,18 +52,25 @@ app.controller('CoursesCtrl',
   if ($scope.restoreSession) {
     document.getElementById('select-school').selectedIndex = 1;
 
-    for (var i = 0; i < sessions['111111']['session'].length; i++) {
-      // Expand the form if the session's courses surpass the form's default size
-      if (i >= $scope.form.length) {
-        $scope.form.push({});
+    $http.get('http://10.10.7.161:3000/studentcourseinfo/' + $scope.sessionID)
+    .then(function(response) {
+      $scope.session = response.data.studentClasses;
+      console.log(response.data.studentClasses);
+      for (var i = 0; i < $scope.session.length; i++) {
+        // Expand the form if the session's courses surpass the form's default size
+        if (i >= $scope.form.length) {
+          $scope.form.push({});
+        }
+
+        $scope.form[i]['subject'] = $scope.session[i]['subject'];
+
+        // Since courses are not loaded immediately, get them as we iterate
+        $scope.getCourses($scope.form[i]['subject']);
+        $scope.form[i]['coursenum'] = $scope.session[i]['coursenum'];
       }
-
-      $scope.form[i]['subject'] = sessions['111111']['session'][i]['subject'];
-
-      // Since courses are not loaded immediately, get them as we iterate
-      $scope.getCourses($scope.form[i]['subject']);
-      $scope.form[i]['coursenum'] = sessions['111111']['session'][i]['coursenum'];
-    }
+    }, function(response) {
+      console.log('Failed to load data.');
+    });
   }
 
   $scope.addCourse = function() {
@@ -73,7 +84,6 @@ app.controller('CoursesCtrl',
   $scope.updateSelection = function(subject, index) {
     $scope.form[index].coursenum = null;
     $scope.getCourses(subject);
-    console.log($scope.form)
   };
 
   $scope.saveSession = function() {
@@ -93,7 +103,6 @@ app.controller('CoursesCtrl',
     }
 
     $http(request).then(function(data) {
-        console.log(request.data);
         $location.path('/save');
     }, function(response) {
       console.log('An error has occurred.');
@@ -130,7 +139,6 @@ app.controller('CoursesCtrl',
     }
 
     $http(request).then(function(data) {
-        console.log(request.data);
         console.log('submitted!');
         $location.path('/submitted');
     }, function(response) {

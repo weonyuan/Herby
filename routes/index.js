@@ -1,5 +1,6 @@
 var express = require('express');
 var document = require('browserify');
+var http = require('http');
 var router = express.Router();
 var app = 'Foxify';
 
@@ -36,23 +37,49 @@ router.post('/courses', function(req, res, next) {
   var firstName = req.body.firstName;
   var lastName = req.body.lastName;
   var email = req.body.email;
+  
+  if (req.body.sessionNum !== undefined) {
+    var sessionID = req.body.sessionNum;
+  }
+
+  var options = {
+      host: '10.10.7.161',
+      port: 3000,
+      path: '/sesid/' + email,
+      method: 'GET'
+  };
+
+  var req = http.request(options, function(res) {
+    var userSession;
+
+    res.setEncoding('utf8');
+    res.on('data', function(chunk) {
+      userSession = chunk;
+    })
+    req.on('error', function(e) {
+        console.log('\n\n==========ERROR==============')
+        console.log('problem with request: ' + e.message);
+    })
+  });
+
+  req.end();
 
   // Alerts the user if they have a saved session
-  if (userSession[req.body.email] !== undefined) {
-    if (userSession[req.body.email]['sessionNum'] !== undefined ||
-        userSession[req.body.email]['sessionNum'] !== null) {
+  if (userSession[email] !== undefined) {
+    if (userSession[email]['sessionNum'] !== undefined ||
+        userSession[email]['sessionNum'] !== null) {
       existingSession = true;
     }
   }
-
+  
   // Restores the user's session
-  if (userSession[req.body.email] !== undefined &&
-      req.body.sessionNum === userSession[req.body.email]['sessionNum']) {
+  if (userSession[email] !== undefined &&
+      sessionID === userSession[email]['sessionNum']) {
     restoreSession = true;
     existingSession = false;
   }
 
-  res.render('courses', { title: app, header: 'Add Courses', alertMsg: existingSession, session: restoreSession, firstName: firstName, lastName: lastName, email: email });
+  res.render('courses', { title: app, header: 'Add Courses', alertMsg: existingSession, session: restoreSession, firstName: firstName, lastName: lastName, email: email, sessionID: sessionID });
 });
 
 router.get('/restore', function(req, res, next) {
