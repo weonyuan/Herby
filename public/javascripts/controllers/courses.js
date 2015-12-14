@@ -49,7 +49,7 @@ app.controller('CoursesCtrl',
 
   // Check to see if previous session needs to be restored
   $scope.restoreSession;
-  if ($scope.restoreSession) {
+  if ($scope.restoreSession || sessionStorage.getItem('restoreSession')) {
     document.getElementById('select-school').selectedIndex = 1;
 
     $http.get('http://10.10.7.161:3000/studentcourseinfo/' + $scope.sessionID)
@@ -114,13 +114,10 @@ app.controller('CoursesCtrl',
     $http.get('http://10.10.7.161:3000/sesid/' + $scope.email)
     .then(function(response) {
       // User does not exist in the system
-      console.log(response.data[$scope.email]);
-      console.log($scope.firstName + ' ' + $scope.lastName);
       if (response.data[$scope.email] === null ||
           response.data[$scope.email] === undefined) {
         $http.post('http://10.10.7.161:3000/insertstudent/' + $scope.firstName + '/' + $scope.lastName + '/' + $scope.email, $scope.form)
           .then(function(data) {
-            console.log('create student');
             $scope.processForm();
           }, function(response) {
             console.log('An error has occurred.');
@@ -148,8 +145,6 @@ app.controller('CoursesCtrl',
     }
 
     $http(request).then(function(data) {
-        console.log('submitted!');
-        console.log(data);
         $location.path('/submitted');
     }, function(response) {
       console.log('An error has occurred.');

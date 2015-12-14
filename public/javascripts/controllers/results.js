@@ -8,6 +8,8 @@ app.controller('ResultsCtrl',
 
   $scope.title = 'Results';
 
+  $('.alert').remove();
+
   // Load the list of majors upon startup
   $http.get('http://10.10.7.161:3000/majors')
   .then(function(response) {
@@ -25,7 +27,6 @@ app.controller('ResultsCtrl',
   $scope.getCreditsInfo = function() {
     $http.get('http://10.10.7.161:3000/maristtransferclasses/' + $scope.major + '/' + $scope.email)
     .then(function(response) {
-      console.log($scope.email);
       $scope.maristCourses = response.data;
       $scope.maristCourses.equivalent = $scope.transferCourses;
 
@@ -33,7 +34,6 @@ app.controller('ResultsCtrl',
       $scope.remainingCredits = 120 - $scope.creditsEarned;
       $scope.majorCredits = $scope.maristCourses.majorCreditTotal;
       $scope.percentComplete = $scope.creditsEarned / 120 * 100;
-
 
       $scope.updateReport();
     }, function(response) {
@@ -119,6 +119,7 @@ app.controller('ResultsCtrl',
   }
 
   $scope.editCourses = function() {
+    sessionStorage.setItem('restoreSession', true);
     $location.path('/');
   }
 }]);
