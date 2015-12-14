@@ -55,7 +55,6 @@ app.controller('CoursesCtrl',
     $http.get('http://10.10.7.161:3000/studentcourseinfo/' + $scope.sessionID)
     .then(function(response) {
       $scope.session = response.data.studentClasses;
-      console.log(response.data.studentClasses);
       for (var i = 0; i < $scope.session.length; i++) {
         // Expand the form if the session's courses surpass the form's default size
         if (i >= $scope.form.length) {
@@ -87,6 +86,8 @@ app.controller('CoursesCtrl',
   };
 
   $scope.saveSession = function() {
+    $scope.sessionID = sessionService.generateSessionID();
+
     var request = {
       method: 'POST',
       url: 'http://10.10.7.161:3000/insertstudentclasses',
@@ -110,16 +111,24 @@ app.controller('CoursesCtrl',
   };
 
   $scope.formSubmit = function() {
-    /*$http.post('http://10.10.7.161:3000/insertstudent/' + 
-      $scope.firstName + '/' + $scope.lastName + '/' +
-      $scope.email, $scope.form)
-      .then(function(data) {
+    $http.get('http://10.10.7.161:3000/sesid/' + $scope.email)
+    .then(function(response) {
+      // User does not exist in the system
+      console.log(response.data[$scope.email]);
+      console.log($scope.firstName + ' ' + $scope.lastName);
+      if (response.data[$scope.email] === null ||
+          response.data[$scope.email] === undefined) {
+        $http.post('http://10.10.7.161:3000/insertstudent/' + $scope.firstName + '/' + $scope.lastName + '/' + $scope.email, $scope.form)
+          .then(function(data) {
+            console.log('create student');
+            $scope.processForm();
+          }, function(response) {
+            console.log('An error has occurred.');
+        });
+      } else {
         $scope.processForm();
-      }, function(response) {
-        console.log('An error has occurred.');
       }
-    );*/
-    $scope.processForm();
+    })
   };
 
   $scope.processForm = function() {
@@ -140,6 +149,7 @@ app.controller('CoursesCtrl',
 
     $http(request).then(function(data) {
         console.log('submitted!');
+        console.log(data);
         $location.path('/submitted');
     }, function(response) {
       console.log('An error has occurred.');

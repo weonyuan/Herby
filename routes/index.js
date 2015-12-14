@@ -59,17 +59,12 @@ router.post('/courses', function(req, res, next) {
       // Alerts the user if they have a saved session
       if (userSession[email] !== undefined) {
         existingSession = true;
+        // Restores the user's session
+        if (sessionID === userSession[email]) {
+          restoreSession = true;
+          existingSession = false;
+        }
       }
-
-      // Restores the user's session
-      if (sessionID === userSession[email]) {
-        restoreSession = true;
-        existingSession = false;
-      }
-
-      console.log(userSession[email]);
-      console.log(restoreSession);
-      console.log(existingSession);
   
       res.render('courses', { title: app, header: 'Add Courses', alertMsg: existingSession, session: restoreSession, firstName: firstName, lastName: lastName, email: email, sessionID: sessionID });
     })

@@ -29,7 +29,7 @@ var app = angular
       generateSessionID: function generate() {
         var sessionID = '';
         
-        if (localStorage.getItem('sessionID') === null &&
+        if (localStorage.getItem('sessionID') === null ||
             localStorage.getItem('sessionID') === undefined) {
           var limit = 6;
 

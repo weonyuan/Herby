@@ -7,4 +7,5 @@ app.controller('SessionCtrl',
   $scope.title = 'Save Session';
 
   $scope.sessionID = sessionService.generateSessionID();
+  
 }]);

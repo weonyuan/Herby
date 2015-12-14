@@ -1,45 +1,20 @@
-var sessions = {
-  "111111": {
-    "email": "dupe@dupe.com",
-    "session": [
-      {
-        "subject": "POSC",
-        "coursenum": "121"
-      },
-      {
-        "subject": "MATH",
-        "coursenum": "125"
-      },
-      {
-        "subject": "MATH",
-        "coursenum": "140"
-      },
-      {
-        "subject": "MUS",
-        "coursenum": "221"
-      },
-      {
-        "subject": "ART",
-        "coursenum": "103"
-      },
-      {
-        "subject": "PHIL",
-        "coursenum": "205"
-      },
-      {
-        "subject": "CRJU",
-        "coursenum": "250"
-      }
-    ]
-  }
-};
+function checkFields() {
+  var firstName = document.forms['basicInfoForm']['firstName'].value.trim();
+  var lastName = document.forms['basicInfoForm']['lastName'].value.trim();
+  var email = document.forms['basicInfoForm']['email'].value.trim();
+  var emailPattern = /^\w+([\.\-]?\w+)*@\w+([\.\-]?\w+)*\.[a-z]{2,6}$/i;
 
-function restore() {
-  for (var i = 0; i < userSession["dupe@dupe.com"]["session"].length; i++) {
-    var subject = document.getElementById('course' + i + '-subject');
-    var course = document.getElementById('course' + i + '-course');
 
-    subject.value = userSession["dupe@dupe.com"]["session"][i]["subject"];
-    course.value = userSession["dupe@dupe.com"]["session"][i]["course"];
+  if (firstName !== null && firstName.length > 0 &&
+      lastName !== null && lastName.length > 0 &&
+      email !== null && email.length > 0 && emailPattern.test(email)) {
+    return true;
+  } else {
+    return false;
   }
+}
+
+function proceed() {
+  localStorage.clear();
+  return true;
 }

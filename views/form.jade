@@ -4,7 +4,7 @@ block content
   .container.container-fluid.center-block
     h1.col-xs-12=header
     p.col-xs-12 Please enter the following fields.
-    form(action='/courses', method='post')
+    form(action='/courses', onsubmit='return checkFields()', method='post', name='basicInfoForm')
       .form-group.col-xs-6.col-sm-6.col-md-6
         label(for='first-name') First Name
         input.form-control(type='text', name='firstName', placeholder='First')

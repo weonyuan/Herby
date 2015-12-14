@@ -20,9 +20,12 @@ app.controller('ResultsCtrl',
   $scope.remainingCredits = 0;
   $scope.majorCredits = 0;
 
+  $scope.major = '*';
+
   $scope.getCreditsInfo = function() {
     $http.get('http://10.10.7.161:3000/maristtransferclasses/' + $scope.major + '/' + $scope.email)
     .then(function(response) {
+      console.log($scope.email);
       $scope.maristCourses = response.data;
       $scope.maristCourses.equivalent = $scope.transferCourses;
 
