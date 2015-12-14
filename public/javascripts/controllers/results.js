@@ -51,11 +51,11 @@ app.controller('ResultsCtrl',
   $scope.getCreditsInfo();
 
   $scope.updateReport = function() {
-    $('span#majorCredits').empty();
+    $('div#majorCredits').empty();
     if ($scope.major === null || $scope.major === undefined || $scope.major === '*') {
       $scope.major = '*';
     } else {
-      $('#transferredCredits').append('<span id="majorCredits"><strong>' + $scope.majorCredits + ' credits</strong> will cover a ' + $scope.major + ' major.</span>');
+      $('#transferredCredits').append('<div id="majorCredits"><strong>' + $scope.majorCredits + ' credits</strong> will cover a ' + $scope.major + ' major.</div>');
     }
 
     if ($scope.maristCourses !== null) {
