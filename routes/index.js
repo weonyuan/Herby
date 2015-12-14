@@ -7,17 +7,6 @@ var userSession = {
   "dupe@dupe.com": { "sessionNum": "111111" }
 };
 
-function randomize() {
-  var random = '';
-  var limit = 6;
-
-  for (var i = 0; i < limit; i++) {
-    random += Math.floor(Math.random() * 10);
-  }
-
-  return random;
-}
-
 router.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -75,7 +64,6 @@ router.post('/submitted', function(req, res, next) {
 });
 
 router.post('/save', function(req, res, next) {
-  console.log(req.body);
   res.render('session_saved', { title: app, header: 'Save Session', sessionNum: randomize() });
 });
 

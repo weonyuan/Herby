@@ -1,15 +1,15 @@
 'use strict';
 
 app.controller('CoursesCtrl',
-  ['$scope', '$routeParams', '$http', '$location',
-  function($scope, $routeParams, $http, $location) {
+  ['$scope', '$routeParams', '$http', '$location', 'sessionService',
+  function($scope, $routeParams, $http, $location, sessionService) {
 
   $scope.title = 'Add Courses';
 
+  // Basic information
   $scope.firstName;
   $scope.lastName;
   $scope.email;
-  console.log($scope.firstName + ' ' + $scope.lastName + ': ' + $scope.email);
 
   // List of courses to be submitted
   $scope.form = [
@@ -17,6 +17,8 @@ app.controller('CoursesCtrl',
     { 'subject': null, 'coursenum': null },
     { 'subject': null, 'coursenum': null }
   ];
+
+  $scope.sessionID = sessionService.generateSessionID();
 
   // Load up the list of subjects upon startup
   $http.get('http://10.10.7.161:3000/subjects')
@@ -75,12 +77,27 @@ app.controller('CoursesCtrl',
   };
 
   $scope.saveSession = function() {
-    $http.post('/save', $scope.form)
-    .success(function(data) {
-      console.log('success!');
-    }).error(function(data) {
-      console.error('An error has occurred.');
-    })
+    var request = {
+      method: 'POST',
+      url: 'http://10.10.7.161:3000/insertstudentclasses',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: {
+        "student_classes": {
+          "sesID": $scope.sessionID,
+          "emailAdd": $scope.email,
+          "session": $scope.form
+        }
+      }
+    }
+
+    $http(request).then(function(data) {
+        console.log(request.data);
+        $location.path('/save');
+    }, function(response) {
+      console.log('An error has occurred.');
+    });
   };
 
   $scope.formSubmit = function() {
@@ -105,7 +122,7 @@ app.controller('CoursesCtrl',
       },
       data: {
         "student_classes": {
-          "sesID": "111113",
+          "sesID": $scope.sessionID,
           "emailAdd": $scope.email,
           "session": $scope.form
         }
